@@ -1,12 +1,12 @@
 const express = require('express');
-const loginRouter = require('./routes/loginRouter');
+const authRouter = require('./routes/authRouter');
 // ...
 
 const app = express();
 
 app.use(express.json());
 
-app.use('/login', loginRouter);
+app.use('/login', authRouter);
 // ...
 
 // É importante exportar a constante `app`,

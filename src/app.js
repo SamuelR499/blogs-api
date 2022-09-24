@@ -6,6 +6,7 @@ const app = express();
 
 app.use(express.json());
 
+// bora comecar!!!!!
 // ...
 
 // É importante exportar a constante `app`,

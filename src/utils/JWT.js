@@ -2,12 +2,10 @@ const jwt = require('jsonwebtoken');
 
 const TOKEN_SECRET_KEY = process.env.JWT_SECRET || 'fecheOsOlhosSenhaForte';
 
-const generateToken = ({ id, displayName, email, image }) => {
+const generateToken = ({ id, displayName }) => {
     const payload = {
         id,
         displayName,
-        email,
-        image,
     };
 
     const jwtConfig = {

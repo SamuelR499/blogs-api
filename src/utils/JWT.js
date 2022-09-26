@@ -11,7 +11,7 @@ const generateToken = ({ id, displayName, email, image }) => {
     };
 
     const jwtConfig = {
-        expiesIn: '999years',
+        expiresIn: '999years',
         algorithm: 'HS256',
     };
 

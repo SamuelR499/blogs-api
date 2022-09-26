@@ -11,6 +11,14 @@ const loginSchema = Joi.object({
     }),
 });
 
+const createUserSchema = Joi.object({
+    displayName: Joi.string().required().min(8),
+    email: Joi.string().required().email(),
+    password: Joi.string().required().min(6),
+    image: Joi.string(),
+});
+
 module.exports = {
     loginSchema,
+    createUserSchema,
 };

@@ -1,8 +1,19 @@
 const { User } = require('../models');
 const errorGenerate = require('../utils/genericErrorHanlder');
 const { generateToken } = require('../utils/JWT');
+const { loginSchema } = require('../utils/schemas');
+
+const userIsValid = (payload) => {
+    const { error } = loginSchema.validate(payload);
+
+    if (error) {
+        throw errorGenerate(400, error.message, error.type);
+    }
+};
 
 const authenticate = async ({ email, password }) => {
+    userIsValid({ email, password }); // se for valido continua, se não para aqui
+    
     if (!email || !password) {
         const error = errorGenerate(400, 'Some required fields are missing', 'Missing field');
 

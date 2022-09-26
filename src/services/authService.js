@@ -1,12 +1,11 @@
 const { User } = require('../models');
-const generateToken = require('../utils/JWT');
+const errorGenerate = require('../utils/genericErrorHanlder');
+const { generateToken } = require('../utils/JWT');
 
 const authenticate = async ({ email, password }) => {
     if (!email || !password) {
-        const status = 400;
-        const message = 'Some required fields are missing';
+        const error = errorGenerate(400, 'Some required fields are missing', 'Missing field');
 
-        const error = { status, message };
         throw error;
     }
 
@@ -14,12 +13,10 @@ const authenticate = async ({ email, password }) => {
         attributes: ['id', 'displayName', 'email', 'image'],
         where: { email, password },
     });
-
+    console.log('suer no service => ', user);
     if (!user) {
-        const status = 400;
-        const message = 'Invalid fields';
+        const error = errorGenerate(400, 'Invalid fields', 'Invalid field');
 
-        const error = { status, message };
         throw error;
     }
 

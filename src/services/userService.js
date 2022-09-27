@@ -53,14 +53,15 @@ const authenticate = async ({ email, password }) => {
         if (isUser !== null) throw errorGenerate(409, 'User already registered');
 
         const newUser = await User.create({ ...user });
-        console.log('newUser >_ ', newUser.dataValues);
         const token = generateToken(newUser.dataValues);
 
         return { token };
     };
 
     const getUsers = async () => {
-        const users = await User.findAll();
+        const users = await User.findAll({
+            attributes: ['id', 'displayName', 'email', 'image'],
+        });
         return users;
     };
 

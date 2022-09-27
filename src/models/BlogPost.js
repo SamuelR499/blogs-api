@@ -16,7 +16,6 @@ module.exports = (sequelize, DataTypes) => {
         },
         userId: {
             type: DataTypes.INTEGER,
-            foreignKey: true,
         },
         published: {
             allowNull: false,

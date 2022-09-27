@@ -9,7 +9,7 @@ module.exports = (sequelize, DataTypes) => {
       },
       {
         timestamps: false,
-        tableName: 'categories',
+        tableName: 'posts_categories',
         underscored: true,
       });
   

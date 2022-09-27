@@ -11,7 +11,7 @@ const userIsValid = (payload) => {
     }
 };
 
-const userExist = async (email) => {
+const emailExist = async (email) => {
     const result = await User.findOne({
         attributes: ['id', 'displayName', 'email', 'image'],
         where: { email },
@@ -19,13 +19,18 @@ const userExist = async (email) => {
     return result;
 };
 
+const userExist = async (email, password) => {
+    const user = await User.findOne({
+    attributes: ['id', 'displayName', 'email', 'image'],
+    where: { email, password },
+});
+    return user;
+};
+
 const authenticate = async ({ email, password }) => {
     userIsValid({ email, password });
 
-    const user = await User.findOne({
-        attributes: ['id', 'displayName', 'email', 'image'],
-        where: { email, password },
-    });
+    const user = await userExist(email, password);
 
     if (!user) {
         const error = errorGenerate(400, 'Invalid fields');
@@ -43,7 +48,7 @@ const authenticate = async ({ email, password }) => {
 
         if (error) throw errorGenerate(400, error.message);
 
-        const isUser = await userExist(user.email);
+        const isUser = await emailExist(user.email);
 
         if (isUser !== null) throw errorGenerate(409, 'User already registered');
 
@@ -54,7 +59,13 @@ const authenticate = async ({ email, password }) => {
         return { token };
     };
 
+    const getUsers = async () => {
+        const users = await User.findAll();
+        return users;
+    };
+
 module.exports = {
     authenticate,
     creatUser,
+    getUsers,
 };

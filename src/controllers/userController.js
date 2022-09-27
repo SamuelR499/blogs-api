@@ -28,8 +28,19 @@ const getUsers = async (_req, res, next) => {
     }
 };
 
+const findById = async (req, res, next) => {
+    const { id } = req.params;
+    try {
+        const user = await userService.findById(id);
+        return res.status(200).json(user);
+    } catch (error) {
+        next(error);
+    }
+};
+
 module.exports = {
     auth,
     createUser,
     getUsers,
+    findById,
 };

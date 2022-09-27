@@ -65,8 +65,19 @@ const authenticate = async ({ email, password }) => {
         return users;
     };
 
+    const findById = async (id) => {
+        const user = await User.findOne({
+            attributes: ['id', 'displayName', 'email', 'image'],
+            where: { id },
+        });
+        if (!user) throw errorGenerate(404, 'User does not exist');
+        
+        return user;
+    };
+
 module.exports = {
     authenticate,
     creatUser,
     getUsers,
+    findById,
 };

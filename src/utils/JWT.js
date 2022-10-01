@@ -26,7 +26,6 @@ const authenticateToken = async (token) => {
 
     try {
         const validateToken = jwt.verify(token, TOKEN_SECRET_KEY);
-        console.log('verify >_ ', validateToken);
         return validateToken;
     } catch (error) {
         throw errorGenerate(401, 'Expired or invalid token');
